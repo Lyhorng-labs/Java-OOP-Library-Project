@@ -3,32 +3,43 @@
 public class Main {
     public static void main(String[] args) {
         Library myLibrary= new Library();
-
-        Book b1 = new Book("Fly me to the moon", "Kenjiro Hata", "Romance");
-        Book b2= new Book("More Than a Married Couple, But Not Lovers", "YuoKi Kanamaru", "Romance");
-        Book b3= new Book("The Fragrant Flower Blooms with Dignity", "Saka Mikami", "Romance");
-
-        User user1= new User("Kon Jruk", 1);
-
+        // 1. System Initialization with different Book types
         System.out.println("---- System Initialization ----");
+
+        // Using the new Category Enum and Subclasses
+        Book b1 = new Book("Fly me to the moon", "Kenjiro Hata", Category.ROMANCE);
+        EBook b2 = new EBook("Java Programming", "John Smith", Category.TECH, 15.5);
+        AudioBook b3 = new AudioBook("The Great Gatsby", "F. Scott Fitzgerald", Category.CLASSIC, 180);
+
+        // Using StudentUser because User is now abstract
+        StudentUser user1 = new StudentUser("Kon Jruk", 102);
+        TeacherUser user2 = new TeacherUser("Mr. Herbert", 501, "English");
+
         myLibrary.addBook(b1);
         myLibrary.addBook(b2);
+        myLibrary.addBook(b3);
         myLibrary.addUser(user1);
+        myLibrary.addUser(user2);
 
         myLibrary.displayBook();
-        System.out.println("---- Testing Borrowing ----");
+
+        // 2. Testing Borrowing (Normal Case)
+        System.out.println("\n---- Testing Borrowing ----");
         myLibrary.borrowItem(user1, "Fly me to the moon");
 
+        // 3. Testing Edge Cases (Book not found & Already borrowed)
         System.out.println("\n---- Testing Edge Case ----");
-        myLibrary.borrowItem(user1, "One Piece");
-        myLibrary.borrowItem(user1, "fly me to the moon");
+        myLibrary.borrowItem(user1, "One Piece"); // Should say not found
+        myLibrary.borrowItem(user2, "Fly me to the moon"); // Should say already borrowed
 
         myLibrary.displayBook();
 
-        System.out.println("---- Testing Return ----");
+        // 4. Testing Return
+        System.out.println("\n---- Testing Return ----");
         myLibrary.returnItem(user1, "Fly me to the moon");
 
-        System.out.println("---- Final Inventory Check ----");
+        // 5. Final Inventory Check
+        System.out.println("\n---- Final Inventory Check ----");
         myLibrary.displayBook();
     }
 }
