@@ -31,10 +31,14 @@ public class Library {
 
     public void borrowItem(User user, String title){
         Book found= searchBook(title);
-        if (found != null){
+        if (found == null) {
+            System.out.println("Error: '" + title + "' not found.");
+        } else if (found.isAvailable()) {
             user.borrowBook(found);
-        }else {
-            System.out.println("models.Book is not found!");
+            found.setAvailable(false);
+            System.out.println(user.getName() + " successfully borrowed " + title);
+        } else {
+            System.out.println("Sorry, '" + title + "' is already checked out.");
         }
 
     }
@@ -42,7 +46,7 @@ public class Library {
     public void returnItem(User user, String title) {
         Book found = searchBook(title);
         if (found == null) {
-            System.out.println("models.Book is not found");
+            System.out.println(title+ " is not found");
             return;
         }
         user.returnBook(found);
