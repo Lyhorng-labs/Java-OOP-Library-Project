@@ -1,3 +1,5 @@
+package models;
+
 import java.util.ArrayList;
 public abstract class User implements Borrowable {
     private String name;
@@ -39,6 +41,6 @@ public abstract class User implements Borrowable {
     }
 
     public String toString(){
-        return "User: " + name + " (ID: " + id + ") has " + borrowbook.size() + " books.";
+        return "models.User: " + name + " (ID: " + id + ") has " + borrowbook.size() + " books.";
     }
 }

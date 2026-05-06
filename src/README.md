@@ -3,8 +3,8 @@
 A Java-based console application designed to manage a library inventory and user borrowing system. This project serves as a foundational demonstration of **Object-Oriented Programming (OOP)**
 
 ## Features
-- Book Management: Add books with titles, authors, and categories.
-- User System: Register users, track their personal borrowed lists.
+- models.Book Management: Add books with titles, authors, and categories.
+- models.User System: Register users, track their personal borrowed lists.
 - Search System: Find books by title.
 - Return System: Handled by the Library to update book availability.
 

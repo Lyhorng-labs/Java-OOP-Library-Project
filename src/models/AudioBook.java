@@ -1,3 +1,5 @@
+package models;
+
 public class AudioBook extends Book{
     private int duration;
     public AudioBook(String title, String author, Category category, int duration){
@@ -10,6 +12,6 @@ public class AudioBook extends Book{
         return hours + "h" + mins + "minute(s)";
     }
     public String toString(){
-        return super.toString() + " [Format: Audio Book | Duration: " + getFormattedDuration() + "]";
+        return super.toString() + " [Format: Audio models.Book | Duration: " + getFormattedDuration() + "]";
     }
 }

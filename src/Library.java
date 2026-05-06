@@ -1,3 +1,6 @@
+import models.Book;
+import models.User;
+
 import java.util.ArrayList;
 public class Library {
     private ArrayList<User> users;
@@ -31,7 +34,7 @@ public class Library {
         if (found != null){
             user.borrowBook(found);
         }else {
-            System.out.println("Book is not found!");
+            System.out.println("models.Book is not found!");
         }
 
     }
@@ -39,7 +42,7 @@ public class Library {
     public void returnItem(User user, String title) {
         Book found = searchBook(title);
         if (found == null) {
-            System.out.println("Book is not found");
+            System.out.println("models.Book is not found");
             return;
         }
         user.returnBook(found);

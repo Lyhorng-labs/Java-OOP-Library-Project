@@ -1,3 +1,5 @@
+package models;
+
 public class StudentUser extends User{
     private int gradeLevel;
 

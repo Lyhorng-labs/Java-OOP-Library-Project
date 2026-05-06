@@ -1,3 +1,5 @@
+package models;
+
 public class TeacherUser extends User{
     private String department;
 
