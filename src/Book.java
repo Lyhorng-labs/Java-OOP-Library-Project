@@ -1,10 +1,10 @@
 public class Book {
     private String title;
     private String author;
-    private String category;
+    private Category category;
     private boolean isAvailable;
 
-    public Book(String title, String author, String category){
+    public Book(String title, String author, Category category){
         this.title=title;
         this.author=author;
         this.category=category;
@@ -19,7 +19,7 @@ public class Book {
         return author;
     }
 
-    public String getCategory(){
+    public Category getCategory(){
         return category;
     }
 
