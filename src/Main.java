@@ -1,47 +1,115 @@
 import models.*;
-
+import java.util.*;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         Library myLibrary= new Library();
-        // 1. System Initialization with different models.Book types
-        System.out.println("---- System Initialization ----");
+        Scanner input= new Scanner(System.in);
+        boolean running= true;
 
-        // Using the new models.Category Enum and Subclasses
-        Book b1 = new Book("Fly me to the moon", "Kenjiro Hata", Category.ROMANCE);
-        EBook b2 = new EBook("Java Programming", "John Smith", Category.TECH, 15.5);
-        AudioBook b3 = new AudioBook("The Great Gatsby", "F. Scott Fitzgerald", Category.CLASSIC, 180);
+        System.out.println("==== Welcome to the Library System ====");
 
-        // Using models.StudentUser because models.User is now abstract
-        StudentUser user1 = new StudentUser("Kon Jruk", 102);
-        TeacherUser user2 = new TeacherUser("Mr. Herbert", 501, "English");
+        while (running){
+            System.out.println("What would you like to do?");
+            System.out.println("1. Add a Book");
+            System.out.println("2. Register a User");
+            System.out.println("3. Borrow Book");
+            System.out.println("4. Return book");
+            System.out.println("5. Display Inventory");
+            System.out.println("6. Exit");
+            System.out.print("Select an option: ");
 
-        myLibrary.addBook(b1);
-        myLibrary.addBook(b2);
-        myLibrary.addBook(b3);
-        myLibrary.addUser(user1);
-        myLibrary.addUser(user2);
+            int choice= getInput(input);
 
-        myLibrary.displayBook();
+            switch (choice){
+                case 1:
+                    System.out.print("Enter a book title: ");
+                    String title= input.nextLine();
+                    System.out.print("Enter the author(s): ");
+                    String author= input.nextLine();
 
-        // 2. Testing Borrowing (Normal Case)
-        System.out.println("\n---- Testing Borrowing ----");
-        myLibrary.borrowItem(user1, "Fly me to the moon");
+                    Category.displayCategories();
+                    System.out.print("Select a number: ");
+                    int num= getInput(input);
 
-        // 3. Testing Edge Cases (models.Book not found & Already borrowed)
-        System.out.println("\n---- Testing Edge Case ----");
-        myLibrary.borrowItem(user1, "One Piece"); // Should say not found
-        myLibrary.borrowItem(user2, "Fly me to the moon"); // Should say already borrowed
+                    Category[] type= Category.values();
+                    if (num >0 && num <= type.length){
+                        Category selected= type[num-1];
+                        myLibrary.addBook(new Book(title, author, selected));
+                        System.out.println("Successfully added");
+                    }else{
+                        System.out.println("Invalid choice. Book not added.");
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter name: ");
+                    String name= input.nextLine();
+                    System.out.print("Enter ID: ");
+                    int id= getInput(input);
 
-        myLibrary.displayBook();
+                    System.out.print("Select User type: 1. Student | 2. Teacher");
+                    int kind=getInput(input);
+                    if (kind==1){
+                        System.out.print("Enter Major: ");
+                        String major = input.nextLine();
+                        myLibrary.addUser(new StudentUser(name, id, major));
+                        System.out.println("Student registered");
+                    }else if (kind ==2){
+                        System.out.print("Enter the Department: ");
+                        String department= input.nextLine();
+                        myLibrary.addUser(new TeacherUser(name, id, department));
+                        System.out.println("Teacher registered");
+                    }else {
+                        System.out.println("Invalid number.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter ID: ");
+                    int borrowUserID= getInput(input);
+                    User userID= myLibrary.searchUser(borrowUserID);
 
-        // 4. Testing Return
-        System.out.println("\n---- Testing Return ----");
-        myLibrary.returnItem(user1, "Fly me to the moon");
-
-        // 5. Final Inventory Check
-        System.out.println("\n---- Final Inventory Check ----");
-        myLibrary.displayBook();
+                    if(userID!=null){
+                        System.out.print("Enter book title: ");
+                        String title_borrow=input.nextLine();
+                        myLibrary.borrowItem(userID, title_borrow);
+                    }else{
+                        System.out.println("User ID " + borrowUserID + " is not found.");
+                    }
+                    break;
+                case 4:
+                    System.out.print("Enter User ID: ");
+                    int returnUserID= getInput(input);
+                    User returnID= myLibrary.searchUser(returnUserID);
+                    if (returnID!=null){
+                        System.out.print("Enter book title to return: ");
+                        String title_return=input.nextLine();
+                        myLibrary.returnItem(returnID, title_return);
+                    }else{
+                        System.out.println("User ID " + returnID + " is not found.");
+                    }
+                    break;
+                case 5:
+                    myLibrary.displayBook();
+                    break;
+                case 6:
+                    System.out.println("Exiting system... Goodbye!");
+                    running=false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again!");
+                    break;
+            }
+        }
     }
+    public static int getInput(Scanner input){
+        while (true){
+            try{
+                return Integer.parseInt(input.nextLine());
+            }catch (NumberFormatException e){
+                System.out.print("\nInvalid input, Please enter a valid number: ");
+            }
+        }
+    }
+
 }

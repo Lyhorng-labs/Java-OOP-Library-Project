@@ -28,6 +28,13 @@ public class Library {
         }
         return null;
     }
+    public User searchUser(int id){
+        for (User user: users){
+            if(user.getId()==id)
+                return user;
+        }
+        return null;
+    }
 
     public void borrowItem(User user, String title){
         Book found= searchBook(title);

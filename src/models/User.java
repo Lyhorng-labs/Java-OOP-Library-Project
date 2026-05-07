@@ -3,10 +3,10 @@ package models;
 import java.util.ArrayList;
 public abstract class User implements Borrowable {
     private String name;
-    private long id;
+    private int id;
     protected ArrayList<Book> borrowbook;
 
-    public User(String name, long id){
+    public User(String name, int id){
         this.name=name;
         this.id=id;
         this.borrowbook=new ArrayList<>();
@@ -16,7 +16,7 @@ public abstract class User implements Borrowable {
         return name;
     }
 
-    public long getId(){
+    public int getId(){
         return id;
     }
     public void borrowBook(Book book) {

@@ -1,13 +1,15 @@
 package models;
 
 public class StudentUser extends User{
-    private int gradeLevel;
+    private String major;
 
-    public StudentUser(String name, int id){
+    public StudentUser(String name, int id, String major ){
         super(name, id);
-
+        this.major=major;
     }
-
+    public String getMajor(){
+        return major;
+    }
     @Override
     public int getBorrowLimit(){
         return 5;
